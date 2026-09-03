@@ -28,6 +28,8 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 const appId = firebaseConfig.appId;
+
+
 // --- UTILITY FUNCTIONS ---
 const generateId = () => crypto.randomUUID();
 
@@ -70,6 +72,17 @@ export default function App() {
   const [schools, setSchools] = useState([]);
   const [managers, setManagers] = useState([]);
   const [visits, setVisits] = useState([]);
+
+  // --- TAILWIND CSS FALLBACK INJECTION ---
+  // This automatically loads the styling engine if it's missing in your local hosting environment.
+  useEffect(() => {
+    if (!document.getElementById('tailwind-cdn')) {
+      const script = document.createElement('script');
+      script.id = 'tailwind-cdn';
+      script.src = 'https://cdn.tailwindcss.com';
+      document.head.appendChild(script);
+    }
+  }, []);
 
   // --- AUTHENTICATION ---
   useEffect(() => {
